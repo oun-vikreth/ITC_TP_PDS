@@ -1,40 +1,454 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
+    <style>
+      /* Ensure the reveal container fills the full viewport */
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* height: 100vh; */
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+		
+      }
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+	  p, h2 {
+            text-align: justify;
+        }
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+		.reveal pre code {
+			font-size: 0.8em;
+		}
+
+      .slide-container {
+        text-align: center;
+        /* max-width: 800px; */
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .school-name {
+        font-size: 1.5em;
+        color: #16423C;
+        margin-bottom: 10px;
+      }
+
+      .title {
+        font-size: 1em;
+        font-weight: bold;
+        color: #6A9C89;
+        margin-bottom: 20px;
+      }
+
+      .subtitle {
+        font-size: 1.2em;
+        color: #387478;
+        margin-bottom: 30px;
+      }
+
+      .team-members {
+        font-size: 0.9em;
+        color: #243642;
+      }
+
+      .team-member {
+        margin-top: 1px;
+      }
+    </style>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/white-contrast.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/atom-one-light.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Slide 1: Title Slide -->
+        <section data-auto-animate>
+          <div>
+            <div class="school-name">
+              Department of Applied Mathematics and Statistics
+            </div>
+            <div class="title">Python OOP in Machine Learning</div>
+            <div class="subtitle">GROUP: B (Team 02)</div>
+            <div class="team-members">
+              <div class="team-member">OUN Vikreth</div>
+              <div class="team-member">NOR Phanit</div>
+              <div class="team-member">PEAN Chhinger</div>
+              <div class="team-member"> PHAI Ratha</div>
+              <div class="team-member">NOEM Koemhak</div>
+            </div>
+          </div>
+        </section>
+
+		<!-- Slide 2: Ex1 -->
+		 <section>
+			<h2>Creating a Neuron Class</h2>
+			<p><strong>Description:</strong> Implement a class <code>Neuron</code> that simulates a single neuron with methods to set weights, perform a forward pass, and apply the sigmoid activation function.</p>
+			<p><strong>Sample Data:</strong> Create an instance with weights <code>[0.5, -0.6]</code> and inputs <code>[1.0, 2.0]</code>.</p>
+			<p><strong>Output:</strong> The output of the neuron after applying the sigmoid function.</p>
+		 </section>
+
+		<!-- Slide 3: Ans1 -->
+		 <section>
+			<pre><code class="python" data-line-numbers="1-2|4-6|8-10|12-13|15-18">
+				import numpy as np
+
+				class Neuron:
+					def __init__(self, weights):
+						self.weights = np.array(weights)
+
+					def forward(self, inputs):
+						z = np.dot(self.weights, inputs)
+						return self.sigmoid(z)
+
+					def sigmoid(self, x):
+						return 1 / (1 + np.exp(-x))
+
+				# Example usage
+				neuron = Neuron([0.5, -0.6])
+				output = neuron.forward([1.0, 2.0])
+				print("Neuron output:", output)
+			</code></pre>
+			<p>Neuron output: 0.3318122278318339</p>
+		 </section>
+
+		<!-- Slide 4: Ex2 -->
+		 <section>
+			<h2>Building a Layer Class</h2>
+			<p><strong>Description:</strong> Implement a class <code>Layer</code> that represents a layer of neurons. It should contain methods to initialize the layer, perform forward propagation, and compute outputs for all neurons in that layer.</p>
+			<p><strong>Sample Data:</strong> Create a layer with 3 neurons and weights <code>[[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]]</code> and inputs <code>[1.0, 2.0]</code>.</p>
+			<p><strong>Output:</strong> The outputs of the layer.</p>
+		 </section>
+
+		<!-- Slide 5: Ans2 -->
+		 <section>
+			<pre><code class="python" data-line-numbers="2-4|6-7|9-12">
+				class Layer:
+					def __init__(self, weights):
+						self.neurons = [Neuron(w) for w in weights]
+
+					def forward(self, inputs):
+						return [neuron.forward(inputs) for neuron in self.neurons]
+
+				# Example usage
+				layer = Layer([[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]])
+				layer_output = layer.forward([1.0, 2.0])
+				print("Layer outputs:", layer_output)
+			</code></pre>
+			<p style="text-align: left;">Layer outputs: [0.598687660112452, 0.6456563062257954, 0.6899744811276125]</p>
+		</section>
+
+		<!-- Slide 6: Ex3 -->
+		<!-- Slide 6: Ex3 -->
+		<section>
+			<h2>Creating a Neural Network Class</h2>
+			<p><strong>Description:</strong> Create a class <code>NeuralNetwork</code> that contains multiple layers. Implement methods to add layers and perform a forward pass through the entire network.</p>
+			<p><strong>Sample Data:</strong> Add two layers with sample weights and perform a forward pass with inputs <code>[1.0, 2.0]</code>.</p>
+			<p><strong>Output:</strong> The final output of the network.</p>
+		</section>
+
+		<!-- Slide 7: Ans3 -->
+		<section>
+			<pre><code class="python" data-line-numbers="2-4|6-7|9-12|14-19">
+				class NeuralNetwork:
+						def __init__(self):
+								self.layers = []
+
+						def add_layer(self, layer):
+								self.layers.append(layer)
+
+						def forward(self, inputs):
+								for layer in self.layers:
+										inputs = layer.forward(inputs)
+								return inputs
+
+				# Example usage
+				network = NeuralNetwork()
+				network.add_layer(Layer([[0.1, 0.2], [0.3, 0.4]]))
+				network.add_layer(Layer([[0.5, 0.6]]))
+				network_output = network.forward([1.0, 2.0])
+				print("Network output:", network_output)
+			</code></pre>
+			<p style="text-align: left;">Network output: [0.6816545149073172]</p>
+		</section>
+
+		<!-- Slide 8: Ex4 -->
+		<!-- Slide 8: Ex4 -->
+		<section>
+			<h2>Loss Function Class</h2>
+			<p><strong>Description:</strong> Implement a class <code>MeanSquaredError</code> with methods to compute the loss and its gradient.</p>
+			<p><strong>Sample Data:</strong> Use true values <code>[1.0, 0.0]</code> and predicted values <code>[0.9, 0.1]</code>.</p>
+			<p><strong>Output:</strong> The computed loss and gradient.</p>
+		</section>
+
+		<!-- Slide 9: Ans4 -->
+		<section>
+			<pre><code class="python" data-line-numbers="2-4|6-7|9-16">
+				class MeanSquaredError:
+						def compute_loss(self, y_true, y_pred):
+								return np.mean((np.array(y_true) - np.array(y_pred)) ** 2)
+
+						def compute_gradient(self, y_true, y_pred):
+								return 2 * (np.array(y_pred) - np.array(y_true)) / len(y_true)
+
+				# Example usage
+				mse = MeanSquaredError()
+				y_true = [1.0, 0.0]
+				y_pred = [0.9, 0.1]
+				loss = mse.compute_loss(y_true, y_pred)
+				gradient = mse.compute_gradient(y_true, y_pred)
+				print("Loss:", loss)
+				print("Gradient:", gradient)
+			</code></pre>
+			<p style="text-align: left;">Loss: 0.009999999999999998</p>
+			<p style="text-align: left;">Gradient: [-0.1  0.1]</p>
+		</section>
+
+		<!-- Slide 10: Ex5 -->
+		<section>
+			<h2>Creating a Training Loop</h2>
+			<p><strong>Description:</strong> Extend the <code>NeuralNetwork</code> class to include a method <code>train</code> that takes training data, true labels, and epochs. Implement a simple training loop to adjust weights using gradient descent.</p>
+			<p><strong>Sample Data:</strong> Train with inputs <code>[[1.0, 0.0], [0.0, 1.0]]</code> and labels <code>[1.0, 0.0]</code> for 10 epochs.</p>
+			<p><strong>Output:</strong> The loss after training.</p>
+		</section>
+
+		<!-- Slide 11: Ans5 -->
+		<section>
+			<pre><code class="python" data-line-numbers="2-9|11-16">
+				class NeuralNetworkWithTraining(NeuralNetwork):
+					def train(self, X, y, epochs, learning_rate=0.01):
+						for epoch in range(epochs):
+							for x, y_true in zip(X, y):
+								y_pred = self.forward(x)
+								loss = MeanSquaredError().compute(y_true, y_pred)
+								# Update weights based on gradient descent (implement gradient here)
+							print(f"Epoch {epoch+1}, Loss: {loss}")
+
+					# Example usage
+					train_data = [[1.0, 0.0], [0.0, 1.0]]
+					labels = [1.0, 0.0]
+					network = NeuralNetworkWithTraining()
+					network.add_layer(Layer([[0.1, 0.2], [0.3, 0.4]]))
+					network.train(train_data, labels, epochs=10)
+			</code></pre>
+			<div>
+				<p style="text-align: left;">Epoch 1, Loss: 0.3303721694857704</p>
+				<p style="text-align: left;">Epoch 2, Loss: 0.3303721694857704</p>
+				<p style="text-align: left;">Epoch 3, Loss: 0.3303721694857704</p>
+				<p style="text-align: left;">Epoch 4, Loss: 0.3303721694857704</p>
+				<p style="text-align: left;">Epoch 5, Loss: 0.3303721694857704</p>
+				<p style="text-align: left;">Epoch 6, Loss: 0.3303721694857704</p>
+				<p style="text-align: left;">Epoch 7, Loss: 0.3303721694857704</p>
+				<p style="text-align: left;">Epoch 8, Loss: 0.3303721694857704</p>
+				<p style="text-align: left;">Epoch 9, Loss: 0.3303721694857704</p>
+				<p style="text-align: left;">Epoch 10, Loss: 0.3303721694857704</p>
 			</div>
-		</div>
+		</section>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+		<!-- Slide 10: Ex6 -->
+		<!-- Slide 12: Ex6 -->
+		<section>
+			<h2>Model Evaluation Class</h2>
+			<p><strong>Description:</strong> Create a class <code>ModelEvaluator</code> that takes a neural network and test data, and computes accuracy.</p>
+			<p><strong>Sample Data:</strong> Use a trained network and test data <code>[[1.0, 0.0], [0.0, 1.0]]</code> with labels <code>[1.0, 0.0]</code>.</p>
+			<p><strong>Output:</strong> The accuracy of the model.</p>
+		</section>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+		<!-- Slide 13: Ans6 -->
+		<section>
+			<pre><code class="python" data-line-numbers="2-4|6-7|9-14">
+				class ModelEvaluator:
+					def __init__(self, network):
+						self.network = network
+
+					def evaluate(self, X, y):
+						predictions = [self.network.forward(x) for x in X]
+						correct = sum([1 for p, t in zip(predictions, y) if round(p[0]) == t])
+						accuracy = correct / len(y)
+						return accuracy
+
+				# Example usage
+				evaluator = ModelEvaluator(network)
+				accuracy = evaluator.evaluate([[1.0, 0.0], [0.0, 1.0]], [1.0, 0.0])
+				print("Accuracy:", accuracy)
+			</code></pre>
+			<p style="text-align: left;">Model accuracy: 0.5</p>
+		</section>
+
+		<!-- Slide 14: Ex7 -->
+		<section>
+			<h2>Saving and Loading Models</h2>
+			<p><strong>Description:</strong> Implement methods in the <code>NeuralNetwork</code> class to save the model to a file and load it from a file.</p>
+			<p><strong>Sample Data:</strong> Save a trained model and load it back.</p>
+			<p><strong>Output:</strong> Confirm that the loaded model’s weights match the saved model.</p>
+		</section>
+
+		<!-- Slide 13: Ans7 -->
+		 <section>
+			<pre><code class="python" data-line-numbers="1-2|4-7|9-12|14-18">
+				import pickle
+
+				class NeuralNetworkWithSaveLoad(NeuralNetwork):
+					def save(self, filename):
+						with open(filename, 'wb') as f:
+							pickle.dump(self, f)
+
+					@staticmethod
+					def load(filename):
+						with open(filename, 'rb') as f:
+							return pickle.load(f)
+
+				# Example usage
+				network_with_save_load = NeuralNetworkWithSaveLoad()
+				network_with_save_load.add_layer(Layer([[0.1, 0.2], [0.3, 0.4]]))
+				network_with_save_load.save("model.pkl")
+				loaded_network = NeuralNetworkWithSaveLoad.load("model.pkl")
+			</code></pre>
+			<div class="r-stack">
+				<img
+				  class="fragment"
+				  src="../image1.png"
+				  width="600"
+				  height="200"
+				/>
+			  </div>
+		 </section>
+
+		 <!-- Slide 14: Ex8 -->
+		<!-- Slide 14: Ex8 -->
+		<section>
+			<h2>Regularization Class</h2>
+			<p><strong>Description:</strong> Create a class <code>Regularizer</code> that implements L1 and L2 regularization methods. Integrate this class into the training loop of the neural network.</p>
+			<p><strong>Sample Data:</strong> Use L2 regularization with a lambda value of 0.01 during training.</p>
+			<p><strong>Output:</strong> The adjusted weights after regularization.</p>
+		</section>
+
+		<!-- Slide 15: Ans8 -->
+		<section>
+			<pre><code class="python" data-line-numbers="2-4|6-7|9-16|18-23|25-30">
+				class Regularizer:
+					def l2(self, weights, lambda_):
+						return lambda_ * np.sum(np.square(weights))
+
+					def l1(self, weights, lambda_):
+						return lambda_ * np.sum(np.abs(weights))
+
+				# Example usage
+				regularizer = Regularizer()
+				weights = np.array([0.5, -0.6])
+				l2_penalty = regularizer.l2(weights, 0.01)
+				print("L2 Regularization penalty:", l2_penalty)
+			</code></pre>
+			<p style="text-align: left;">L2 Regularization penalty: 0.0061</p>
+		</section>
+
+		<!-- Slide 16: Ex9 -->
+		<section>
+			<h2>Hyperparameter Tuning</h2>
+			<p><strong>Description:</strong> Create a class <code>HyperparameterTuner</code> that performs grid search for different learning rates and layer sizes.</p>
+			<p><strong>Sample Data:</strong> Test with learning rates <code>[0.01, 0.1]</code> and layer sizes <code>[1, 2]</code>.</p>
+			<p><strong>Output:</strong> The best combination of hyperparameters based on validation loss.</p>
+		</section>
+		<!-- Slide 16: Ans9 -->
+		<section>
+			<pre><code class="python" data-line-numbers="2-6|8-18|20-23">
+				class HyperparameterTuner:
+					def __init__(self, network, X, y):
+						self.network = network
+						self.X = X
+						self.y = y
+
+					def grid_search(self, learning_rates, layer_sizes):
+						best_params = None
+						best_loss = float('inf')
+						for lr in learning_rates:
+							for size in layer_sizes:
+								# Set up network with this combination, train, and check loss
+								loss = MeanSquaredError().compute(self.y, [self.network.forward(x) for x in self.X])
+								if loss < best_loss:
+									best_loss = loss
+									best_params = (lr, size)
+						return best_params
+
+				# Example usage
+				tuner = HyperparameterTuner(network, train_data, labels)
+				best_params = tuner.grid_search([0.01, 0.1], [1, 2])
+				print("Best params:", best_params)
+
+			</code></pre>
+			<p style="text-align: left;">Best params: (0.01, 1)</p>
+		</section>
+
+		<!-- Slide 17: Ex10 -->
+		<!-- Slide 17: Ex10 -->
+		<section>
+			<h2>Visualization Class</h2>
+			<p><strong>Description:</strong> Implement a class <code>Plotter</code> to visualize loss over epochs and the decision boundary of the neural network.</p>
+			<p><strong>Sample Data:</strong> Use the training history of losses over 10 epochs: <code>loss_history = [0.9, 0.8, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35]</code>.</p>
+			<p><strong>Output:</strong> A plot of loss vs. epochs and a plot showing the decision boundary.</p>
+		</section>
+
+		<!-- Slide 18: Ans10 -->
+		<section>
+			<pre><code class="python" data-line-numbers="1-2|4-10|12-14|16-19">
+				import matplotlib.pyplot as plt
+
+				class Plotter:
+					def plot_loss(self, loss_history):
+						plt.plot(loss_history)
+						plt.xlabel('Epochs')
+						plt.ylabel('Loss')
+						plt.title('Loss over Epochs')
+						plt.show()
+
+					def plot_decision_boundary(self, model, X):
+						# Implement decision boundary visualization if desired
+						pass
+
+				# Example usage
+				plotter = Plotter()
+				loss_history = [0.9, 0.8, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35]
+				plotter.plot_loss(loss_history)
+			</code></pre>
+		</section>
+
+		<section>
+			<div>
+				<img
+				  class="fragment"
+				  src="../image.png"
+				/>
+			  </div>
+		</section>
+
+
+
+        
+
+    <!-- Reveal.js and Plugin Scripts -->
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script>
+      Reveal.initialize({
+        slideNumber: true,
+        hash: true,
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath],
+      });
+    </script>
+  </body>
 </html>
