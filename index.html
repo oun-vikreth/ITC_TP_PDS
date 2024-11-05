@@ -94,7 +94,7 @@
 
 		<!-- Slide 2: Ex1 -->
 		 <section>
-			<h2>Creating a Neuron Class</h2>
+			<h2>1. Creating a Neuron Class</h2>
 			<p><strong>Description:</strong> Implement a class <code>Neuron</code> that simulates a single neuron with methods to set weights, perform a forward pass, and apply the sigmoid activation function.</p>
 			<p><strong>Sample Data:</strong> Create an instance with weights <code>[0.5, -0.6]</code> and inputs <code>[1.0, 2.0]</code>.</p>
 			<p><strong>Output:</strong> The output of the neuron after applying the sigmoid function.</p>
@@ -126,7 +126,7 @@
 
 		<!-- Slide 4: Ex2 -->
 		 <section>
-			<h2>Building a Layer Class</h2>
+			<h2>2. Building a Layer Class</h2>
 			<p><strong>Description:</strong> Implement a class <code>Layer</code> that represents a layer of neurons. It should contain methods to initialize the layer, perform forward propagation, and compute outputs for all neurons in that layer.</p>
 			<p><strong>Sample Data:</strong> Create a layer with 3 neurons and weights <code>[[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]]</code> and inputs <code>[1.0, 2.0]</code>.</p>
 			<p><strong>Output:</strong> The outputs of the layer.</p>
@@ -151,9 +151,8 @@
 		</section>
 
 		<!-- Slide 6: Ex3 -->
-		<!-- Slide 6: Ex3 -->
 		<section>
-			<h2>Creating a Neural Network Class</h2>
+			<h2>3. Creating a Neural Network Class</h2>
 			<p><strong>Description:</strong> Create a class <code>NeuralNetwork</code> that contains multiple layers. Implement methods to add layers and perform a forward pass through the entire network.</p>
 			<p><strong>Sample Data:</strong> Add two layers with sample weights and perform a forward pass with inputs <code>[1.0, 2.0]</code>.</p>
 			<p><strong>Output:</strong> The final output of the network.</p>
@@ -187,7 +186,7 @@
 		<!-- Slide 8: Ex4 -->
 		<!-- Slide 8: Ex4 -->
 		<section>
-			<h2>Loss Function Class</h2>
+			<h2>4. Loss Function Class</h2>
 			<p><strong>Description:</strong> Implement a class <code>MeanSquaredError</code> with methods to compute the loss and its gradient.</p>
 			<p><strong>Sample Data:</strong> Use true values <code>[1.0, 0.0]</code> and predicted values <code>[0.9, 0.1]</code>.</p>
 			<p><strong>Output:</strong> The computed loss and gradient.</p>
@@ -218,7 +217,7 @@
 
 		<!-- Slide 10: Ex5 -->
 		<section>
-			<h2>Creating a Training Loop</h2>
+			<h2>5. Creating a Training Loop</h2>
 			<p><strong>Description:</strong> Extend the <code>NeuralNetwork</code> class to include a method <code>train</code> that takes training data, true labels, and epochs. Implement a simple training loop to adjust weights using gradient descent.</p>
 			<p><strong>Sample Data:</strong> Train with inputs <code>[[1.0, 0.0], [0.0, 1.0]]</code> and labels <code>[1.0, 0.0]</code> for 10 epochs.</p>
 			<p><strong>Output:</strong> The loss after training.</p>
@@ -226,41 +225,45 @@
 
 		<!-- Slide 11: Ans5 -->
 		<section>
-			<pre><code class="python" data-line-numbers="2-9|11-16">
-				class NeuralNetworkWithTraining(NeuralNetwork):
-					def train(self, X, y, epochs, learning_rate=0.01):
-						for epoch in range(epochs):
-							for x, y_true in zip(X, y):
-								y_pred = self.forward(x)
-								loss = MeanSquaredError().compute(y_true, y_pred)
-								# Update weights based on gradient descent (implement gradient here)
-							print(f"Epoch {epoch+1}, Loss: {loss}")
-
-					# Example usage
-					train_data = [[1.0, 0.0], [0.0, 1.0]]
-					labels = [1.0, 0.0]
-					network = NeuralNetworkWithTraining()
-					network.add_layer(Layer([[0.1, 0.2], [0.3, 0.4]]))
-					network.train(train_data, labels, epochs=10)
-			</code></pre>
-			<div>
-				<p style="text-align: left;">Epoch 1, Loss: 0.3303721694857704</p>
-				<p style="text-align: left;">Epoch 2, Loss: 0.3303721694857704</p>
-				<p style="text-align: left;">Epoch 3, Loss: 0.3303721694857704</p>
-				<p style="text-align: left;">Epoch 4, Loss: 0.3303721694857704</p>
-				<p style="text-align: left;">Epoch 5, Loss: 0.3303721694857704</p>
-				<p style="text-align: left;">Epoch 6, Loss: 0.3303721694857704</p>
-				<p style="text-align: left;">Epoch 7, Loss: 0.3303721694857704</p>
-				<p style="text-align: left;">Epoch 8, Loss: 0.3303721694857704</p>
-				<p style="text-align: left;">Epoch 9, Loss: 0.3303721694857704</p>
-				<p style="text-align: left;">Epoch 10, Loss: 0.3303721694857704</p>
-			</div>
+			<section>
+				<pre><code class="python" data-line-numbers="2-9|11-16">
+					class NeuralNetworkWithTraining(NeuralNetwork):
+						def train(self, X, y, epochs, learning_rate=0.01):
+							for epoch in range(epochs):
+								for x, y_true in zip(X, y):
+									y_pred = self.forward(x)
+									loss = MeanSquaredError().compute(y_true, y_pred)
+									# Update weights based on gradient descent (implement gradient here)
+								print(f"Epoch {epoch+1}, Loss: {loss}")
+	
+						# Example usage
+						train_data = [[1.0, 0.0], [0.0, 1.0]]
+						labels = [1.0, 0.0]
+						network = NeuralNetworkWithTraining()
+						network.add_layer(Layer([[0.1, 0.2], [0.3, 0.4]]))
+						network.train(train_data, labels, epochs=10)
+				</code></pre>
+			</section>
+			<section>
+				<div style="font-size: large;">
+					<p style="text-align: left;">Epoch 1, Loss: 0.3303721694857704</p>
+					<p style="text-align: left;">Epoch 2, Loss: 0.3303721694857704</p>
+					<p style="text-align: left;">Epoch 3, Loss: 0.3303721694857704</p>
+					<p style="text-align: left;">Epoch 4, Loss: 0.3303721694857704</p>
+					<p style="text-align: left;">Epoch 5, Loss: 0.3303721694857704</p>
+					<p style="text-align: left;">Epoch 6, Loss: 0.3303721694857704</p>
+					<p style="text-align: left;">Epoch 7, Loss: 0.3303721694857704</p>
+					<p style="text-align: left;">Epoch 8, Loss: 0.3303721694857704</p>
+					<p style="text-align: left;">Epoch 9, Loss: 0.3303721694857704</p>
+					<p style="text-align: left;">Epoch 10, Loss: 0.3303721694857704</p>
+				</div>
+			</section>
 		</section>
 
 		<!-- Slide 10: Ex6 -->
 		<!-- Slide 12: Ex6 -->
 		<section>
-			<h2>Model Evaluation Class</h2>
+			<h2>6. Model Evaluation Class</h2>
 			<p><strong>Description:</strong> Create a class <code>ModelEvaluator</code> that takes a neural network and test data, and computes accuracy.</p>
 			<p><strong>Sample Data:</strong> Use a trained network and test data <code>[[1.0, 0.0], [0.0, 1.0]]</code> with labels <code>[1.0, 0.0]</code>.</p>
 			<p><strong>Output:</strong> The accuracy of the model.</p>
@@ -289,7 +292,7 @@
 
 		<!-- Slide 14: Ex7 -->
 		<section>
-			<h2>Saving and Loading Models</h2>
+			<h2>7. Saving and Loading Models</h2>
 			<p><strong>Description:</strong> Implement methods in the <code>NeuralNetwork</code> class to save the model to a file and load it from a file.</p>
 			<p><strong>Sample Data:</strong> Save a trained model and load it back.</p>
 			<p><strong>Output:</strong> Confirm that the loaded model’s weights match the saved model.</p>
@@ -322,6 +325,7 @@
 				  src="../image1.png"
 				  width="600"
 				  height="200"
+				  alt="Description of image"
 				/>
 			  </div>
 		 </section>
@@ -329,7 +333,7 @@
 		 <!-- Slide 14: Ex8 -->
 		<!-- Slide 14: Ex8 -->
 		<section>
-			<h2>Regularization Class</h2>
+			<h2>8. Regularization Class</h2>
 			<p><strong>Description:</strong> Create a class <code>Regularizer</code> that implements L1 and L2 regularization methods. Integrate this class into the training loop of the neural network.</p>
 			<p><strong>Sample Data:</strong> Use L2 regularization with a lambda value of 0.01 during training.</p>
 			<p><strong>Output:</strong> The adjusted weights after regularization.</p>
@@ -356,7 +360,7 @@
 
 		<!-- Slide 16: Ex9 -->
 		<section>
-			<h2>Hyperparameter Tuning</h2>
+			<h2>9. Hyperparameter Tuning</h2>
 			<p><strong>Description:</strong> Create a class <code>HyperparameterTuner</code> that performs grid search for different learning rates and layer sizes.</p>
 			<p><strong>Sample Data:</strong> Test with learning rates <code>[0.01, 0.1]</code> and layer sizes <code>[1, 2]</code>.</p>
 			<p><strong>Output:</strong> The best combination of hyperparameters based on validation loss.</p>
@@ -394,7 +398,7 @@
 		<!-- Slide 17: Ex10 -->
 		<!-- Slide 17: Ex10 -->
 		<section>
-			<h2>Visualization Class</h2>
+			<h2>10. Visualization Class</h2>
 			<p><strong>Description:</strong> Implement a class <code>Plotter</code> to visualize loss over epochs and the decision boundary of the neural network.</p>
 			<p><strong>Sample Data:</strong> Use the training history of losses over 10 epochs: <code>loss_history = [0.9, 0.8, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35]</code>.</p>
 			<p><strong>Output:</strong> A plot of loss vs. epochs and a plot showing the decision boundary.</p>
@@ -402,36 +406,38 @@
 
 		<!-- Slide 18: Ans10 -->
 		<section>
-			<pre><code class="python" data-line-numbers="1-2|4-10|12-14|16-19">
-				import matplotlib.pyplot as plt
+			<section>
+				<pre><code class="python" data-line-numbers="1-2|4-10|12-14|16-19">
+					import matplotlib.pyplot as plt
+	
+					class Plotter:
+						def plot_loss(self, loss_history):
+							plt.plot(loss_history)
+							plt.xlabel('Epochs')
+							plt.ylabel('Loss')
+							plt.title('Loss over Epochs')
+							plt.show()
+	
+						def plot_decision_boundary(self, model, X):
+							# Implement decision boundary visualization if desired
+							pass
+	
+					# Example usage
+					plotter = Plotter()
+					loss_history = [0.9, 0.8, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35]
+					plotter.plot_loss(loss_history)
+				</code></pre>
+			</section>
 
-				class Plotter:
-					def plot_loss(self, loss_history):
-						plt.plot(loss_history)
-						plt.xlabel('Epochs')
-						plt.ylabel('Loss')
-						plt.title('Loss over Epochs')
-						plt.show()
-
-					def plot_decision_boundary(self, model, X):
-						# Implement decision boundary visualization if desired
-						pass
-
-				# Example usage
-				plotter = Plotter()
-				loss_history = [0.9, 0.8, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35]
-				plotter.plot_loss(loss_history)
-			</code></pre>
+			<section>
+					<img
+					  class="fragment"
+					  src="../image.png"
+					/>
+			</section>
 		</section>
 
-		<section>
-			<div>
-				<img
-				  class="fragment"
-				  src="../image.png"
-				/>
-			  </div>
-		</section>
+		
 
 
 
